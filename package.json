@@ -1,0 +1,18 @@
+{
+  "name": "CurrencyExchange",
+  "version": "1.0.0",
+  "description": "a currency exchange rate worker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node worker.js"
+  },
+  "author": "selina",
+  "dependencies":{
+  	"fivebeans":"^1.5.0",
+  	"mongodb":"^2.2.15",
+  	"bluebird":"^3.4.6",
+  	"co":"^4.6.0",
+  	"request":"^2.79.0"
+  }
+}
