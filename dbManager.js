@@ -1,7 +1,6 @@
 'use strict';
 
 const config = require('./config');
-//const promise = require('bluebird');
 const co = require('co');
 const mongodb = require('mongodb');
 
@@ -28,7 +27,6 @@ DBManager.prototype.insertDocuments = function (documents) {
 
 function onError(err) {
 	console.log('[dbManager]' + err);
-	throw err;
 }
 
 module.exports = DBManager;

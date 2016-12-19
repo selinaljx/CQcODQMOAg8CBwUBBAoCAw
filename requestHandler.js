@@ -1,6 +1,7 @@
 'use strict';
 
 const config = require('./config');
+const promise = require('bluebird');
 const request = require('request');
 
 function getExchangeRate(base, symbol, callback) {
@@ -15,7 +16,7 @@ function getExchangeRate(base, symbol, callback) {
 			let json_response = JSON.parse(body);
 			rate = roundoffRate(json_response.rates[symbol]);
 		} else if (!error) {
-			callback_err = 'request failed with status code ' + response.statusCode;
+			console.log('[getExchangeRate]request failed with status code ' + response.statusCode);
 		}
 
 		console.log('[getExchangeRate]' + callback_err);
@@ -33,4 +34,4 @@ function roundoffRate(rate) {
 	return -1;
 }
 
-exports.getExchangeRate = getExchangeRate;
+exports.getExchangeRate = promise.promisify(getExchangeRate);
