@@ -4,6 +4,20 @@ const config = require('./config');
 const promise = require('bluebird');
 const request = require('request');
 
+/**
+ * Exchage rate API config
+ * @param {object} config - The configuration parameter
+ * @param {object} config.ex - The exchange rate configuration parameter
+ * @param {string} config.ex.API - The exchange rate API url
+ */
+
+/**
+ * To get the exchage rate through calling API and return a callback function
+ * @param  {string}   base - The currency to get to
+ * @param  {string}   symbol - The currency to get from
+ * @param  {Function} callback - The callback function to handle the rate and the error
+ * @return {Function}
+ */
 function getExchangeRate(base, symbol, callback) {
 	let ex_api = config.ex.API + '?base=' + base + '&symbols=' + symbol;
 
@@ -24,6 +38,12 @@ function getExchangeRate(base, symbol, callback) {
 	});
 }
 
+
+/**
+ * To round off the currency rate to 2 decimal places
+ * @param  {string|number} rate - The currency rate
+ * @return {number}
+ */
 function roundoffRate(rate) {
 	if (typeof rate === 'number') {
 		return rate.toFixed(2);

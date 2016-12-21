@@ -7,6 +7,17 @@ const fivebeans = promise.promisifyAll(require('fivebeans'));
 const requestHandler = require('./requestHandler');
 const DBManager = require('./dbManager');
 
+
+/**
+ * Beanstalkd config
+ * @param {object} config - The configuration parameter
+ * @param {obejct} config.beanstalkd - The beanstalkd configuration parameter
+ * @param {string} config.beanstalkd.HOST - The beanstalkd hostname
+ * @param {number} config.beanstalkd.PORT - The beanstalkd port number
+ * @param {string} config.beanstalkd.TUBE_NAME - The beanstalkd tube name
+ */
+
+
 let retryCount = 0;
 let successCount = 0;
 let db = new DBManager();
@@ -17,6 +28,10 @@ client.on('error', onBeanstalkdError);
 client.on('close', onBeanstalkdClose);
 client.connect();
 
+
+/**
+ * To handle beanstalkd connection
+ */
 function onBeanstalkdConnect() {
 	co(function* () {
 		let numwatched = yield client.watchAsync(config.beanstalkd.TUBE_NAME);
@@ -58,14 +73,25 @@ function onBeanstalkdConnect() {
 	}).catch(onError);
 }
 
+/**
+ * To handle beanstalkd error
+ * @param  {object} err - The beanstalkd error
+ */
 function onBeanstalkdError(err) {
 	console.log(err);
 }
 
+/**
+ * To carring out handling in beanstalked closing state
+ */
 function onBeanstalkdClose() {
 	console.log('beanstalkd connection closed');
 }
 
+/**
+ * To log exceptional error
+ * @param  {obejct} err - The exceptional error
+ */
 function onError(err) {
 	console.log(err);
 }
